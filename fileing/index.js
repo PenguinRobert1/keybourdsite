@@ -15,18 +15,18 @@ const products = [
     {
         id: 3,
         name: "Bluetooth Speaker",
-        price: 29.99,
+        price
         image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80"
     },
     {
         id: 4,
-        name: "Running Shoes",
+        name: "Mouse Pads",
         price: 79.99,
         image: "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?w=400&q=80"
     },
     {
         id: 5,
-        name: "Fitness Tracker",
+        name: "Nintendo Controller",
         price: 49.99,
         image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&q=80"
     }
