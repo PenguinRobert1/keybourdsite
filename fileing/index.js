@@ -1,12 +1,3 @@
-function setCookie(name, value, days = 7) {
-    const expires = new Date(Date.now() + days*24*60*60*1000).toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
-}
-
-function getCookie(name) {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    return match ? decodeURIComponent(match[2]) : null;
-}
 // Simple product data for demo
 const products = [
     {
@@ -41,6 +32,18 @@ const products = [
     }
 ];
 
+// --- Cookie Helpers ---
+function setCookie(name, value, days = 7) {
+    const expires = new Date(Date.now() + days*24*60*60*1000).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+}
+
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+}
+
+// --- Cart State ---
 let cart = [];
 const cartCookie = getCookie('cart');
 if (cartCookie) {
@@ -49,6 +52,10 @@ if (cartCookie) {
     } catch (e) {
         cart = [];
     }
+}
+
+function saveCartToCookie() {
+    setCookie('cart', JSON.stringify(cart));
 }
 
 function renderProducts() {
@@ -76,6 +83,7 @@ function addToCart(id) {
         cart.push({ ...prod, qty: 1 });
     }
     updateCartCount();
+    saveCartToCookie();
 }
 
 function updateCartCount() {
@@ -103,6 +111,7 @@ function removeFromCart(id) {
     cart = cart.filter(item => item.id !== id);
     updateCartCount();
     renderCart();
+    saveCartToCookie();
 }
 
 document.getElementById('cartBtn').addEventListener('click', () => {
@@ -118,6 +127,7 @@ document.getElementById('checkoutBtn').addEventListener('click', () => {
     updateCartCount();
     renderCart();
     document.getElementById('cartModal').classList.remove('active');
+    saveCartToCookie();
 });
 
 // Initial rendering
