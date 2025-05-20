@@ -178,4 +178,5 @@ footer {
 .logo {
     height: 50px;
     width: 50px;
+    border-image: 50px;
 }
