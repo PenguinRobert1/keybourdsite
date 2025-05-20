@@ -174,9 +174,3 @@ footer {
     .product-list { flex-direction: column; align-items: center; }
     .products { padding: 1rem; }
 }
-
-.logo {
-    height: 50px;
-    width: 50px;
-    border-image: 50px;
-}
