@@ -1,3 +1,12 @@
+function setCookie(name, value, days = 7) {
+    const expires = new Date(Date.now() + days*24*60*60*1000).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+}
+
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+}
 // Simple product data for demo
 const products = [
     {
@@ -33,6 +42,14 @@ const products = [
 ];
 
 let cart = [];
+const cartCookie = getCookie('cart');
+if (cartCookie) {
+    try {
+        cart = JSON.parse(cartCookie);
+    } catch (e) {
+        cart = [];
+    }
+}
 
 function renderProducts() {
     const productList = document.getElementById('productList');
